@@ -1,3 +1,6 @@
+# 绘制情绪变化图
+# 每秒从data.txt中读取数据，使用pyplot画图
+
 import matplotlib.pyplot as plt
 import matplotlib.animation as anim
 import time

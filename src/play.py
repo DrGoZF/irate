@@ -1,3 +1,5 @@
+# 播放一段音频文件，并分段放入queue - demo使用
+
 import pyaudio  
 import wave  
    

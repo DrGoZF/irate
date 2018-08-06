@@ -1,6 +1,9 @@
+# 从麦克风中获取音频数据，并分成5秒一段的样本，加入queue
+
 import pyaudio
 import wave
 
+# 音频设置
 CHUNK = 2
 FORMAT = pyaudio.paInt16
 CHANNELS = 2
@@ -8,6 +11,7 @@ RATE = 48000
 WAVE_OUTPUT_FILENAME = "output{0}.wav"
 
 def record_data(threadName, q, record_seconds, parts, queueLock):
+    # 开始音频流
     p = pyaudio.PyAudio()
     stream = p.open(format=FORMAT,
                     channels=CHANNELS,
@@ -17,6 +21,7 @@ def record_data(threadName, q, record_seconds, parts, queueLock):
 
     print("* recording")
 
+    # 截取5秒一段的文件，并保存成wav文件
     frame0 = []
     frame1 = []
     frame2 = []
@@ -72,6 +77,7 @@ def record_data(threadName, q, record_seconds, parts, queueLock):
 
     print("* done recording")
 
+    # 关闭音频流
     stream.stop_stream()
     stream.close()
     p.terminate()

@@ -1,3 +1,7 @@
+# 神经网络的训练和分类
+# trainNN - 使用sklearn.neural_network的MLPClassifier进行训练，输出模型
+# classifyNN - 根据训练输出的模型进行分类
+
 import numpy as np
 import cPickle
 import os
@@ -8,14 +12,17 @@ from pyAudioAnalysis import audioFeatureExtraction as aF
 from pyAudioAnalysis import audioTrainTest as aT
 from pyAudioAnalysis import audioBasicIO
 
+# 模型输出名称
 modelName = "emotionModelData1NNO"
 
+# 输入参数，调用MLPClassifier
 def train(featuresNew, param):
 	[X, Y] = aT.listOfFeatures2Matrix(featuresNew)
 	clf = MLPClassifier(solver = 'lbfgs', alpha = 1e-5, hidden_layer_sizes = (5,param), random_state = 1)
 	clf.fit(X, Y)
 	return clf
 
+# 利用pyaudioanalysis提取参数，训练，dump成模型文件
 def trainNN(listOfDirs, mtWin, mtStep, stWin, stStep, computeBEAT=False):
 	#Feature Extraction
 	[features, classNames, _] = aF.dirsWavFeatureExtraction(listOfDirs, mtWin, mtStep, stWin, stStep, computeBEAT=computeBEAT)

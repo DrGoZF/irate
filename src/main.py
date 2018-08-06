@@ -1,3 +1,5 @@
+# demo演示的主程序
+
 import Queue
 import threading
 import sys
@@ -8,6 +10,7 @@ from record import record_data
 from play import play_data
 #from plot import plot_data
 
+# 进行分类的thread，调用classification.py里的process_data
 class workThread(threading.Thread):
     def __init__(self, threadID, name, q, lock):
         threading.Thread.__init__(self)
@@ -19,6 +22,7 @@ class workThread(threading.Thread):
         process_data(self.name, self.q, MODEL, RECORD_SECONDS, PARTS, queueLock)
         print "Exiting " + self.name
 
+# 进行录音的thread，调用record.py里的record_data
 class recordThread(threading.Thread):
     def __init__(self, threadID, name, q, lock):
         threading.Thread.__init__(self)
@@ -30,6 +34,7 @@ class recordThread(threading.Thread):
         record_data(self.name, self.q, RECORD_SECONDS, PARTS, queueLock)
         print "Exiting " + self.name
 
+# 进行音频播放的thread，调用play.py里的play_data
 class playThread(threading.Thread):
     def __init__(self, threadID, name, q, lock):
         threading.Thread.__init__(self)
@@ -41,6 +46,7 @@ class playThread(threading.Thread):
         play_data(self.name, self.q, RECORD_SECONDS, PARTS, queueLock, fileName)
         print "Exiting " + self.name
 
+# 进行图像绘制的thread，调用plot.py里的plot.data（有bug，最终未使用）
 class plotThread(threading.Thread):
     def __init__(self, threadID, name):
         threading.Thread.__init__(self)
